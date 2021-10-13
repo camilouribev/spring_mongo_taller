@@ -3,7 +3,9 @@ package com.sofkau.library.mappers;
 import com.sofkau.library.dtos.ResourceDTO;
 import com.sofkau.library.entities.Resource;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResourceMapper {
     private ModelMapper mapper;
 
@@ -18,8 +20,6 @@ public class ResourceMapper {
         Resource resource= mapper.map(resourceDTO,Resource.class);
         return resource;
     }
-}
-
-
 
 }
+

@@ -69,7 +69,7 @@ public class Resource {
         return loanDate;
     }
 
-    public Date setLoanDate(Date loanDate) {
+    public void setLoanDate(Date loanDate) {
         this.loanDate = loanDate;
     }
 
