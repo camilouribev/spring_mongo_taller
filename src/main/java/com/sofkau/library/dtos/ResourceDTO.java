@@ -1,16 +1,9 @@
-package com.sofkau.library.entities;
+package com.sofkau.library.dtos;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.util.Date;
 
-@Document
-public class Resource {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ResourceDTO {
+
     private String id;
     private String name;
     private String type;
@@ -19,11 +12,7 @@ public class Resource {
     private int borrowedCopies;
     private int totalCopies;
 
-    public Resource(){
-
-    }
-
-    public Resource(String id, String name, String type, String genre, Date loanDate, int borrowedCopies, int totalCopies) {
+    public ResourceDTO(String id, String name, String type, String genre, Date loanDate, int borrowedCopies, int totalCopies) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -31,6 +20,10 @@ public class Resource {
         this.loanDate = loanDate;
         this.borrowedCopies = borrowedCopies;
         this.totalCopies = totalCopies;
+    }
+
+    public ResourceDTO() {
+        super();
     }
 
     public String getId() {
@@ -69,7 +62,7 @@ public class Resource {
         return loanDate;
     }
 
-    public Date setLoanDate(Date loanDate) {
+    public void setLoanDate(Date loanDate) {
         this.loanDate = loanDate;
     }
 
