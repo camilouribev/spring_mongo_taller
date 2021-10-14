@@ -13,5 +13,9 @@ public interface ResourceServiceInterface {
     public String checkIfResourceAvailable(String id);
     public String borrowResource(String id);
     public String returnResource(String id);
+    public Set<ResourceDTO> recommendResourceByType(String type);
+    public Set<ResourceDTO> recommendResourceByGenre(String genre);
+
+
 
 }

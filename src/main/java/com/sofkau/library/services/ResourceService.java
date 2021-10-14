@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -103,5 +104,18 @@ public class ResourceService implements ResourceServiceInterface {
 
         return "No copies of the " + resDTO.getType() + " " + resDTO.getName() + " are borrowed. Nothing to return";
 
+    }
+
+    @Override
+    public Set<ResourceDTO> recommendResourceByType(String type) {
+        return resourceRepository.findByType(type).stream().map(res -> mapper.convertToDTO(res))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<ResourceDTO> recommendResourceByGenre(String genre) {
+
+        return resourceRepository.findByGenre(genre).stream().map(res -> mapper.convertToDTO(res))
+                .collect(Collectors.toSet());
     }
 }

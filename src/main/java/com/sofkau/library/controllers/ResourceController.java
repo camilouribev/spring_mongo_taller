@@ -58,6 +58,19 @@ public class ResourceController {
     public String returnResource(@PathVariable("resId") String id){
         return resourceService.returnResource(id);
     }
+    @GetMapping(value = "/api/resources/recommendbygenre/{genre}")
+    public Set<ResourceDTO> recommendResourceByGenre(@PathVariable("genre") String genre){
+        return resourceService.recommendResourceByGenre(genre);
+    }
+
+    @GetMapping(value = "/api/resources/recommendbytype/{type}")
+    public Set<ResourceDTO> recommendResourceByType(@PathVariable("type") String type){
+        return resourceService.recommendResourceByType(type);
+    }
+
+
+
+
 
 
 }
