@@ -118,4 +118,20 @@ public class ResourceService implements ResourceServiceInterface {
         return resourceRepository.findByGenre(genre).stream().map(res -> mapper.convertToDTO(res))
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    public Set<ResourceDTO> recommendResourceSpecific(String type, String genre) {
+        Set<ResourceDTO> recommendedByGenre = recommendResourceByGenre(genre);
+        Set<ResourceDTO> recommendedByType = recommendResourceByType(type);
+        Set<ResourceDTO> mergedDTO = new HashSet<>();
+
+    for (ResourceDTO firstDto: recommendedByType){
+        for (ResourceDTO dto : recommendedByGenre) {
+            if (firstDto.getId().equals(dto.getId())) {
+                mergedDTO.add(dto);
+            }
+        }
+    }
+        return mergedDTO;
+    }
 }

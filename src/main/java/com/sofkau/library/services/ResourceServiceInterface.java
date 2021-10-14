@@ -15,7 +15,5 @@ public interface ResourceServiceInterface {
     public String returnResource(String id);
     public Set<ResourceDTO> recommendResourceByType(String type);
     public Set<ResourceDTO> recommendResourceByGenre(String genre);
-
-
-
+    public Set<ResourceDTO> recommendResourceSpecific(String type, String genre);
 }

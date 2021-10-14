@@ -68,6 +68,11 @@ public class ResourceController {
         return resourceService.recommendResourceByType(type);
     }
 
+    @GetMapping(value = "/api/resources/recommendspecific/{type}/{genre}")
+    public Set<ResourceDTO> recommendResourceByType(@PathVariable("type") String type,@PathVariable("genre") String genre){
+        return resourceService.recommendResourceSpecific(type,genre);
+    }
+
 
 
 
