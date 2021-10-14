@@ -125,13 +125,13 @@ public class ResourceService implements ResourceServiceInterface {
         Set<ResourceDTO> recommendedByType = recommendResourceByType(type);
         Set<ResourceDTO> mergedDTO = new HashSet<>();
 
-    for (ResourceDTO firstDto: recommendedByType){
-        for (ResourceDTO dto : recommendedByGenre) {
-            if (firstDto.getId().equals(dto.getId())) {
-                mergedDTO.add(dto);
-            }
-        }
-    }
+        recommendedByGenre.stream().forEach(firstDto -> {
+            recommendedByType.stream().forEach(dto -> {
+                if (firstDto.getId().equals(dto.getId())) {
+                    mergedDTO.add(dto);
+                }
+            });
+        });
         return mergedDTO;
     }
 }
