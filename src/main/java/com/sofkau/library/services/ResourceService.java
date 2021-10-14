@@ -7,6 +7,7 @@ import com.sofkau.library.repositories.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,9 +41,9 @@ public class ResourceService implements ResourceServiceInterface {
     @Override
     public ResourceDTO getResourceById(String id) {
         try {
-            return  mapper.convertToDTO(resourceRepository.findById(id).get()) ;
+            return mapper.convertToDTO(resourceRepository.findById(id).get());
         } catch (Exception e) {
-            throw  new NoSuchElementException("There is no resource with that Id");
+            throw new NoSuchElementException("There is no resource with that Id");
         }
     }
 
@@ -55,9 +56,52 @@ public class ResourceService implements ResourceServiceInterface {
 
     @Override
     public void deleteResource(String id) {
-        Resource resource = resourceRepository.findById(id).orElseThrow(()-> new NoSuchElementException());
+        Resource resource = resourceRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
         resourceRepository.delete(resource);
     }
 
+    @Override
+    public String checkIfResourceAvailable(String id) {
+        Resource resource = resourceRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        int availableResources = resource.getTotalCopies() - resource.getBorrowedCopies();
+        if (availableResources != 0) {
 
+            return "The " + resource.getType() + " " + resource.getName() + " is available. There are "
+                    + availableResources + " copies remaining.";
+        }
+
+        return "All copies of the " + resource.getType() + " " + resource.getName() + " are borrowed." + " The last copy was borrowed on " + resource.getLoanDate();
+    }
+
+    @Override
+    public String borrowResource(String id) {
+        Resource resource = resourceRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        ResourceDTO resDTO = mapper.convertToDTO(resource);
+        int availableResources = resDTO.getTotalCopies() - resDTO.getBorrowedCopies();
+        if (availableResources != 0) {
+            resDTO.setLoanDate(LocalDate.now());
+            resDTO.setBorrowedCopies(resDTO.getBorrowedCopies() + 1);
+            updateResource(id, resDTO);
+            return "You borrowed a copy of " + resDTO.getType() + " " + resDTO.getName() + " on " + resDTO.getLoanDate();
+        }
+
+        return "All copies of the " + resDTO.getType() + " " + resDTO.getName() + " are borrowed.";
+
+    }
+
+    @Override
+    public String returnResource(String id) {
+        Resource resource = resourceRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        ResourceDTO resDTO = mapper.convertToDTO(resource);
+
+        if (resDTO.getBorrowedCopies() != 0) {
+            resDTO.setLoanDate(LocalDate.now());
+            resDTO.setBorrowedCopies(resDTO.getBorrowedCopies() - 1);
+            updateResource(id, resDTO);
+            return "You returned a copy of the " + resDTO.getType() + " " + resDTO.getName();
+        }
+
+        return "No copies of the " + resDTO.getType() + " " + resDTO.getName() + " are borrowed. Nothing to return";
+
+    }
 }

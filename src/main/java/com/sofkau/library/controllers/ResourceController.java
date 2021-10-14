@@ -16,6 +16,7 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
+     // CRUD actions
     @PostMapping(value = "/api/new")
     public ResourceDTO addNewResource(@RequestBody ResourceDTO resDTO) {
         return resourceService.createResource(resDTO);
@@ -43,4 +44,20 @@ public class ResourceController {
     public void deleteResource(@PathVariable("resId") String id) {
         resourceService.deleteResource(id);
     }
+  // Business actions
+    @GetMapping(value = "/api/resources/{resId}/isavailable")
+    public String checkIsResourceAvaliable(@PathVariable("resId") String id){
+        return resourceService.checkIfResourceAvailable(id);
+    }
+
+    @PutMapping(value = "/api/resources/{resId}/borrow")
+    public String borrowResource(@PathVariable("resId") String id){
+        return resourceService.borrowResource(id);
+    }
+    @PutMapping(value = "/api/resources/{resId}/return")
+    public String returnResource(@PathVariable("resId") String id){
+        return resourceService.returnResource(id);
+    }
+
+
 }

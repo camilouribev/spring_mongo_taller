@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Document
@@ -15,7 +16,7 @@ public class Resource {
     private String name;
     private String type;
     private String genre;
-    private Date loanDate;
+    private LocalDate loanDate;
     private int borrowedCopies;
     private int totalCopies;
 
@@ -23,7 +24,7 @@ public class Resource {
 
     }
 
-    public Resource(String id, String name, String type, String genre, Date loanDate, int borrowedCopies, int totalCopies) {
+    public Resource(String id, String name, String type, String genre, LocalDate loanDate, int borrowedCopies, int totalCopies) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -65,11 +66,11 @@ public class Resource {
         this.genre = genre;
     }
 
-    public Date getLoanDate() {
+    public LocalDate getLoanDate() {
         return loanDate;
     }
 
-    public void setLoanDate(Date loanDate) {
+    public void setLoanDate(LocalDate loanDate) {
         this.loanDate = loanDate;
     }
 

@@ -10,5 +10,8 @@ public interface ResourceServiceInterface {
     public ResourceDTO getResourceById(String id);
     public ResourceDTO updateResource(String id, ResourceDTO resDTO);
     public void deleteResource(String id);
+    public String checkIfResourceAvailable(String id);
+    public String borrowResource(String id);
+    public String returnResource(String id);
 
 }
