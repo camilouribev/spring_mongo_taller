@@ -26,7 +26,7 @@ public class ResourceService implements ResourceServiceInterface {
     }
 
     @Override
-    public ResourceDTO createResource(ResourceDTO resource) {
+    public  ResourceDTO createResource(ResourceDTO resource) {
         Resource newResource = mapper.convertToEntity(resource);
         return mapper.convertToDTO(resourceRepository.save(newResource));
 

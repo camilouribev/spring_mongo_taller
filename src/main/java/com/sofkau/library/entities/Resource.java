@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -13,6 +14,8 @@ public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @NotBlank(message= "Resources must have a name")
     private String name;
     private String type;
     private String genre;

@@ -3,6 +3,9 @@ package com.sofkau.library.controllers;
 import com.sofkau.library.dtos.ResourceDTO;
 import com.sofkau.library.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -17,9 +20,10 @@ public class ResourceController {
     }
 
      // CRUD actions
-    @PostMapping(value = "/api/new")
-    public ResourceDTO addNewResource(@RequestBody ResourceDTO resDTO) {
-        return resourceService.createResource(resDTO);
+    @PostMapping(value = "/api/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<ResourceDTO>  addNewResource(@RequestBody ResourceDTO resDTO) {
+        return new ResponseEntity(resourceService.createResource(resDTO), HttpStatus.CREATED) ;
     }
 
     @GetMapping(value = "/api/resources")
